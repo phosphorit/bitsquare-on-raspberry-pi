@@ -32,8 +32,6 @@ echo "Installing bitsquare ..."
 echo "Update and upgrade repository"
 sudo apt-get -y update
 sudo apt-get -y upgrade
-echo "Install mvn"
-sudo apt-get -y install maven
 
 echo "Get oracle JDK"
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-arm32-vfp-hflt.tar.gz
@@ -43,11 +41,18 @@ sudo tar zxvf jdk-8u92-linux-arm32-vfp-hflt.tar.gz -C /opt
 sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_92/bin/javac 320
 sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 320
 
+echo "Getting openjfx overlay"
+wget http://chriswhocodes.com/downloads/openjfx-8u60-sdk-overlay-linux-armv6hf.zip
+sudo unzip openjfx-8u60-sdk-overlay-linux-armv6hf.zip -d /opt/jdk1.8.0_92
+
 echo "Enable unlimited Strength for cryptographic keys"
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
 unzip jce_policy-8.zip
 sudo cp UnlimitedJCEPolicyJDK8/US_export_policy.jar /opt/jdk1.8.0_92/jre/lib/security/US_export_policy.jar
 sudo cp UnlimitedJCEPolicyJDK8/local_policy.jar /opt/jdk1.8.0_92/jre/lib/security/local_policy.jar
+
+echo "Install mvn and tor"
+sudo apt-get -y install maven tor
 
 echo "Install bitcoinj"
 git clone -b FixBloomFilters https://github.com/bitsquare/bitcoinj.git
@@ -58,6 +63,9 @@ cd -
 echo "Getting bitsquare code"
 git clone https://github.com/bitsquare/bitsquare.git
 cd bitsquare
+echo "Apply tor executable patch for RPi"
+wget https://github.com/metabit/bitsquare/commit/330e661709ec1478dac81b967fade81d953ced0a.patch
+patch -p1 <330e661709ec1478dac81b967fade81d953ced0a.patch
 echo "Build bitsquare"
 mvn clean package -DskipTests
 cd -
