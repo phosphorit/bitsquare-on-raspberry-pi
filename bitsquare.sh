@@ -1,17 +1,16 @@
 #!/bin/sh
-echo "#################################################"
-echo "# Bitsquare auto install on Raspberry PI.       #"
-echo "# +metabit (June 11 2016)                       #"
-echo "# https://github.com/metabit                    #"
-echo "# Donations: 1MetabitMKKGcYZy8YieDHenjjoMxHNAgW #"
-echo "#################################################"
+echo "######################################################"
+echo "# Bitsquare auto install on Raspberry PI.            #"
+echo "# phosphor forked from metabit and SjonHortensius    #"
+echo "# https://github.com/phosphorit                      #"
+echo "######################################################"
 echo
-
-# Bounty: https://forum.bitsquare.io/t/1-btc-bounty-for-bitsquare-on-raspberry-pi/209"
 
 # Prerequisites - Raspbian installation:
 #   1. Get Raspbian Jessie image from https://www.raspberrypi.org/downloads/raspbian/
 #   2. Follow https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+
+set -e
 
 # Sanity check - raspbery pi hardware?
 uname -m | grep -v arm > /dev/null && echo "This is not a Raspberry PI. Aborting ..." && exit 1
@@ -19,15 +18,6 @@ uname -m | grep -v arm > /dev/null && echo "This is not a Raspberry PI. Aborting
 # Let's work at home
 cd
 
-# Check if it an update or a first install
-if [ -d ~/bitsquare ]; then
-echo "Running update for bitsquare ..."
-echo "Updating bitsquare code"
-cd bitsquare
-git pull
-mvn clean package -DskipTests
-echo "Update done."
-else
 echo "Installing bitsquare ..."
 echo "Update and upgrade repository"
 sudo apt-get -y update
@@ -55,14 +45,16 @@ echo "Install mvn and tor"
 sudo apt-get -y install maven tor
 
 echo "Install bitcoinj"
-git clone -b FixBloomFilters https://github.com/bitsquare/bitcoinj.git
+[[ -d bitcoinj ]] || git clone -b FixBloomFilters https://github.com/bitsquare/bitcoinj.git
 cd bitcoinj
+git pull
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true
 cd -
 
 echo "Getting bitsquare code"
-git clone https://github.com/bitsquare/bitsquare.git
+[[ -d bitsquare ]] || git clone https://github.com/bitsquare/bitsquare.git
 cd bitsquare
+git pull
 echo "Apply tor executable patch for RPi"
 wget https://github.com/metabit/bitsquare/commit/330e661709ec1478dac81b967fade81d953ced0a.patch
 patch -p1 <330e661709ec1478dac81b967fade81d953ced0a.patch
@@ -70,7 +62,7 @@ echo "Build bitsquare"
 mvn clean package -DskipTests
 cd -
 
-echo "Copy the BountyCastle provider jar file"
+echo "Copy the BouncyCastle provider jar file"
 sudo cp /home/pi/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.53/bcprov-jdk15on-1.53.jar /opt/jdk1.8.0_92/jre/lib/ext/bcprov-jdk15on-1.53.jar
 
 echo "Update java.security file to add BouncyCastleProvider"
@@ -78,9 +70,6 @@ sudo chmod 666 /opt/jdk1.8.0_92/jre/lib/security/java.security
 sudo echo "security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /opt/jdk1.8.0_92/jre/lib/security/java.security
 sudo chmod 644 /opt/jdk1.8.0_92/jre/lib/security/java.security
 
-fi
-
 # Done
 echo
 echo "Usage: java -jar ~/bitsquare/gui/target/shaded.jar"
-
