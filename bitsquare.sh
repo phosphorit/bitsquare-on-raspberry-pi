@@ -19,9 +19,12 @@ uname -m | grep -v arm > /dev/null && echo "This is not a Raspberry PI. Aborting
 cd
 
 echo "Installing bitsquare ..."
-echo "Update and upgrade repository"
+echo "Update (and upgrade) repository"
 sudo apt-get -y update
-sudo apt-get -y upgrade
+#sudo apt-get -y upgrade
+
+echo "Removing openjdk-7"
+sudo apt-get -y remove openjdk-7.*
 
 echo "Get oracle JDK"
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-arm32-vfp-hflt.tar.gz
@@ -72,4 +75,5 @@ sudo chmod 644 /opt/jdk1.8.0_92/jre/lib/security/java.security
 
 # Done
 echo
-echo "Usage: java -jar ~/bitsquare/gui/target/shaded.jar"
+echo "Usage: java -Xmx256m -jar ~/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF"
+echo "to quite use ctrl-q"
