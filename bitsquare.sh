@@ -31,8 +31,8 @@ wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-
 
 echo "Install oracle JDK"
 sudo tar zxvf jdk-8u92-linux-arm32-vfp-hflt.tar.gz -C /opt
-sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_92/bin/javac 320
-sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 320
+sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_92/bin/javac 1111
+sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 1111
 
 echo "Getting openjfx overlay"
 wget http://chriswhocodes.com/downloads/openjfx-8u60-sdk-overlay-linux-armv6hf.zip
