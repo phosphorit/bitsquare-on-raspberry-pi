@@ -75,5 +75,7 @@ sudo chmod 644 /opt/jdk1.8.0_92/jre/lib/security/java.security
 
 # Done
 echo
-echo "Usage: java -Xmx256m -jar ~/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF"
-echo "to quite use ctrl-q"
+echo "Usage:"
+echo "  sudo su"
+echo "  java -Xmx256m -jar /home/pi/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF"
+echo "to quit use ctrl-q"
