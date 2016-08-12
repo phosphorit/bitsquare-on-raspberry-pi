@@ -36,11 +36,11 @@ sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 
 
 echo "Getting openjfx overlay"
 wget http://chriswhocodes.com/downloads/openjfx-8u60-sdk-overlay-linux-armv6hf.zip
-sudo unzip openjfx-8u60-sdk-overlay-linux-armv6hf.zip -d /opt/jdk1.8.0_92
+sudo unzip -o openjfx-8u60-sdk-overlay-linux-armv6hf.zip -d /opt/jdk1.8.0_92
 
 echo "Enable unlimited Strength for cryptographic keys"
 wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
-unzip jce_policy-8.zip
+unzip -o jce_policy-8.zip
 sudo cp UnlimitedJCEPolicyJDK8/US_export_policy.jar /opt/jdk1.8.0_92/jre/lib/security/US_export_policy.jar
 sudo cp UnlimitedJCEPolicyJDK8/local_policy.jar /opt/jdk1.8.0_92/jre/lib/security/local_policy.jar
 
