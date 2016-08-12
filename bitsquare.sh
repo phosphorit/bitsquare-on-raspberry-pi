@@ -60,7 +60,7 @@ cd bitsquare
 git pull
 echo "Apply tor executable patch for RPi"
 wget https://github.com/metabit/bitsquare/commit/330e661709ec1478dac81b967fade81d953ced0a.patch
-patch -p1 <330e661709ec1478dac81b967fade81d953ced0a.patch
+patch -f -p1 <330e661709ec1478dac81b967fade81d953ced0a.patch || :
 echo "Build bitsquare"
 mvn clean package -DskipTests
 cd -
