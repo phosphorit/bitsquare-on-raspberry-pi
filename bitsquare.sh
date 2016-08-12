@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "######################################################"
 echo "# Bitsquare auto install on Raspberry PI.            #"
 echo "# phosphor forked from metabit and SjonHortensius    #"
