@@ -73,9 +73,11 @@ sudo chmod 666 /opt/jdk1.8.0_92/jre/lib/security/java.security
 sudo echo "security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider" >> /opt/jdk1.8.0_92/jre/lib/security/java.security
 sudo chmod 644 /opt/jdk1.8.0_92/jre/lib/security/java.security
 
+echo "write start script"
+echo "sudo su; /usr/bin/java -Dsun.java2d.opengl=True -Xmx256m -jar /home/pi/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF" > start.sh
+sudo chmod 777 start.sh
+
 # Done
 echo
-echo "Usage:"
-echo "  sudo su"
-echo "  java -Xmx256m -jar /home/pi/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF"
+echo "to start enter: ./start.sh"
 echo "to quit use ctrl-q"
