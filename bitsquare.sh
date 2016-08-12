@@ -74,10 +74,13 @@ sudo echo "security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvid
 sudo chmod 644 /opt/jdk1.8.0_92/jre/lib/security/java.security
 
 echo "write start script"
-echo "sudo su; /usr/bin/java -Dsun.java2d.opengl=True -Xmx256m -jar /home/pi/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF \"\$@\"" > start.sh
+cd bitsquare-on-raspberry-pi
+echo "/usr/bin/java -Dsun.java2d.opengl=True -Xmx256m -jar /home/pi/bitsquare/gui/target/shaded.jar --maxConnections 6 --logLevel OFF \"\$@\"" > start.sh
 sudo chmod 777 start.sh
 
 # Done
 echo
-echo "to start enter: ./start.sh"
+echo "to start enter:"
+echo "    sudo su"
+echo "    ./start.sh"
 echo "to quit use ctrl-q"
