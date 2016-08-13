@@ -34,6 +34,10 @@ sudo tar zxvf jdk-8u92-linux-arm32-vfp-hflt.tar.gz -C /opt
 sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_92/bin/javac 1111
 sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_92/bin/java 1111
 
+echo "copy jdkfix jar file"
+# remove this once fixed in jdk
+sudo cp bitsquare/jdkfix/target/jdkfix-0.4.9.3.jar /opt/jdk1.8.0_92/jre/lib/ext/
+
 echo "Getting openjfx overlay"
 wget http://chriswhocodes.com/downloads/openjfx-8u60-sdk-overlay-linux-armv6hf.zip
 sudo unzip -o openjfx-8u60-sdk-overlay-linux-armv6hf.zip -d /opt/jdk1.8.0_92
