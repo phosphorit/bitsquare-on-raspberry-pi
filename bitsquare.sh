@@ -58,7 +58,7 @@ echo "Getting bitsquare code"
 [[ -d bitsquare ]] || git clone https://github.com/bitsquare/bitsquare.git
 cd bitsquare
 git pull
-git checkout v0.4.9.6
+git checkout MasterWithJdkFix
 
 echo "Apply tor executable patch for RPi"
 wget https://github.com/metabit/bitsquare/commit/330e661709ec1478dac81b967fade81d953ced0a.patch
@@ -69,7 +69,7 @@ cd -
 
 echo "copy jdkfix jar file"
 # remove this once fixed in jdk
-sudo cp bitsquare/jdkfix/target/jdkfix-0.4.9.6.jar /opt/jdk1.8.0_92/jre/lib/ext/
+sudo cp bitsquare/jdkfix/target/jdkfix-*.jar /opt/jdk1.8.0_92/jre/lib/ext/
 
 echo "Copy the BouncyCastle provider jar file"
 sudo cp /home/pi/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.53/bcprov-jdk15on-1.53.jar /opt/jdk1.8.0_92/jre/lib/ext/bcprov-jdk15on-1.53.jar
